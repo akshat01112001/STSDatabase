@@ -11,17 +11,17 @@ public class UserDetails {
 	
 	@Id
 	private String Email;
-	@Column(name="FirstName")
+	@Column(name="FirstName" , columnDefinition = "varchar(100) default 'ABC'")
 	private String FirstName;
-	@Column(name="LastName")
+	@Column(name="LastName" , columnDefinition = "varchar(100) default 'DEF'")
 	private String LastName;
-	@Column(name="Username")
+	@Column(name="Username" , columnDefinition = "varchar(100) default 'ABCDEF'")
 	private String Username;
-	@Column(name="Phone")
+	@Column(name="Phone" , columnDefinition = "varchar(10) default '0'")
 	private String Phone;
-	@Column(name="RegNo")
+	@Column(name="RegNo" ,  columnDefinition = "varchar(20) default '0'")
 	private String RegNo;
-	@Column(name="Address")
+	@Column(name="Address" , columnDefinition = "varchar(100) default 'X'")
 	private String Address;
 	
 	public String getEmail() {

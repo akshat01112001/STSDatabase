@@ -9,21 +9,38 @@ import javax.persistence.Table;
 @Table(name="registrationdetails")
 public class UserDetails {
 	
-	@Id
-	private String Email;
-	@Column(name="FirstName" , columnDefinition = "varchar(100) default 'ABC'")
-	private String FirstName;
-	@Column(name="LastName" , columnDefinition = "varchar(100) default 'DEF'")
-	private String LastName;
-	@Column(name="Username" , columnDefinition = "varchar(100) default 'ABCDEF'")
-	private String Username;
-	@Column(name="Phone" , columnDefinition = "varchar(10) default '0'")
-	private String Phone;
-	@Column(name="RegNo" ,  columnDefinition = "varchar(20) default '0'")
-	private String RegNo;
-	@Column(name="Address" , columnDefinition = "varchar(100) default 'X'")
-	private String Address;
 	
+	@Column(name="Email")
+	private String Email;
+	@Column(name="FirstName")
+	private String FirstName;
+	@Column(name="LastName")
+	private String LastName;
+	@Id
+	@Column(name="Username")
+	private String Username;
+	@Column(name="Phone")
+	private String Phone;
+	@Column(name="RegNo" )
+	private String RegNo;
+	@Column(name="Address")
+	private String Address;
+	@Column(name="Password")
+	private String Password;
+	private String ConfPassword;
+	
+	public String getConfPassword() {
+		return ConfPassword;
+	}
+	public void setConfPassword(String confPassword) {
+		ConfPassword = confPassword;
+	}
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
+	}
 	public String getEmail() {
 		return Email;
 	}

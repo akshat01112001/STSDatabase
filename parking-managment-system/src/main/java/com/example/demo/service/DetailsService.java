@@ -8,5 +8,6 @@ public interface DetailsService {
 		
 	List<UserDetails> getAllUserDetailss();
 	void saveUserDetails(UserDetails userDetails);
+	boolean findUser(UserDetails userDetails);
 	
 }

@@ -31,7 +31,33 @@ public class ParkingController {
 	
 	@PostMapping("/saveDetails")
 	public String saveDetails(@ModelAttribute("UserDetails") UserDetails userDetails) {
-		detailsService.saveUserDetails(userDetails);
-		return "redirect:/";
+		if((userDetails.getPassword()).compareTo(userDetails.getConfPassword())==0)
+		{
+			detailsService.saveUserDetails(userDetails);
+			return "redirect:/login";
+		}
+		else
+			return "redirect:/register";
+	}
+	
+	@GetMapping("/login")
+	public String Login(Model model) {
+		UserDetails userDetails=new UserDetails();
+		model.addAttribute("userDetails", userDetails);
+		return "Login";
+	}
+	
+	@GetMapping("/dashboard")
+	public String Dashboard() {
+		return "Dashboard";
+	}
+	
+	@PostMapping("/processDetails")
+	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails)
+	{
+		if(detailsService.findUser(userDetails)==true)
+		return "redirect:/dashboard";
+		else
+		return "redirect:/login";
 	}
 }

@@ -17,10 +17,18 @@ public class DetailsServiceImpl implements DetailsService{
 	public List<UserDetails> getAllUserDetailss() {
 		return detailsRepository.findAll();
 	}
+	
 	@Override
 	public void saveUserDetails(UserDetails userDetails) {
 		this.detailsRepository.save(userDetails);
 		
 	}
-
+	
+	@Override
+	public boolean findUser(UserDetails userDetails) {
+		if((this.detailsRepository.existsById(userDetails.getUsername())==true)&&(this.detailsRepository.getById(userDetails.getUsername()).getPassword()).compareTo(userDetails.getPassword())==0)
+			return true;
+		else
+			return false;
+	}
 }

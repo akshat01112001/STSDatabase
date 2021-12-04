@@ -55,7 +55,9 @@ public class ParkingController {
 	@PostMapping("/processDetails")
 	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails)
 	{
-		if(detailsService.findUser(userDetails)==true)
+		if(detailsService.findUser(userDetails)==true && (userDetails.getUsername()).compareTo("admin")==0)
+		return "redirect:/";
+		else if(detailsService.findUser(userDetails)==true)
 		return "redirect:/dashboard";
 		else
 		return "redirect:/login";

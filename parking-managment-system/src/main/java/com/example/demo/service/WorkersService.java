@@ -6,6 +6,7 @@ import com.example.demo.model.WorkerDetails;
 public interface WorkersService {
 	List<WorkerDetails> getAllWorkerDetailss();
 	void saveWorkerDetails(WorkerDetails workerDetails);
+	void deleteWorkerById(String Name);
 }
 
 

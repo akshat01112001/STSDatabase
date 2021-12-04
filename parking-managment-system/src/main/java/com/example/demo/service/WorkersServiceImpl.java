@@ -24,5 +24,10 @@ public class WorkersServiceImpl implements WorkersService{
 		this.workersRepository.save(workerDetails);
 		
 	}
+
+	@Override
+	public void deleteWorkerById(String Name) {
+		this.workersRepository.deleteById(Name);
+	}
 	
 }

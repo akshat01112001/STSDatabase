@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.UserDetails;
@@ -37,6 +38,12 @@ public class ParkingController {
 		UserDetails userDetails=new UserDetails();
 		model.addAttribute("userDetails", userDetails);
 		return "Register";
+	}
+	
+	@GetMapping("/deleteWorker/{Name}")
+	public String deleteWorker(@PathVariable (value="Name") String Name) {
+		this.workersService.deleteWorkerById(Name);
+		return "redirect:/admin";
 	}
 	
 	@PostMapping("/saveDetails")

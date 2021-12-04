@@ -57,6 +57,12 @@ public class ParkingController {
 			return "redirect:/register";
 	}
 	
+	@GetMapping("/logout")
+	public String Logout()
+	{
+		return "redirect:/login";
+	}
+	
 	@GetMapping("/login")
 	public String Login(Model model) {
 		UserDetails userDetails=new UserDetails();
@@ -86,7 +92,7 @@ public class ParkingController {
 	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails)
 	{
 		if(detailsService.findUser(userDetails)==true && (userDetails.getUsername()).compareTo("admin")==0)
-		return "redirect:/";
+		return "redirect:/admin";
 		else if(detailsService.findUser(userDetails)==true)
 		return "redirect:/dashboard";
 		else

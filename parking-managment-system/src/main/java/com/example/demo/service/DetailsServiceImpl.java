@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.UserDetails;
 import com.example.demo.repository.DetailsRepository;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class DetailsServiceImpl implements DetailsService{
 
@@ -20,6 +22,8 @@ public class DetailsServiceImpl implements DetailsService{
 	
 	@Override
 	public void saveUserDetails(UserDetails userDetails) {
+		String VerLink=RandomString.make(60);
+		userDetails.setVerify(VerLink);
 		this.detailsRepository.save(userDetails);
 		
 	}

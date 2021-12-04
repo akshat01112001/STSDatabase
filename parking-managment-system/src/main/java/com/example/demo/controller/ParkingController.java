@@ -8,18 +8,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.UserDetails;
+import com.example.demo.model.WorkerDetails;
 import com.example.demo.service.DetailsService;
+import com.example.demo.service.WorkersService;
 
 @Controller
 public class ParkingController {
 	
 	@Autowired
 	private DetailsService detailsService;
+	@Autowired
+	private WorkersService workersService;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listDetails", detailsService.getAllUserDetailss());
 		return "index";
+	}
+	
+	@PostMapping("/addWorker")
+	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
+		workersService.saveWorkerDetails(workerDetails);
+		return "redirect:/admin"; 
 	}
 	
 	@GetMapping("/register")
@@ -50,6 +60,19 @@ public class ParkingController {
 	@GetMapping("/dashboard")
 	public String Dashboard() {
 		return "Dashboard";
+	}
+	
+	@GetMapping("/add")
+	public String addWorker(Model model) {
+		WorkerDetails workerDetails=new WorkerDetails();
+		model.addAttribute("workerDetails", workerDetails);
+		return "AddWorker";
+	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		model.addAttribute("listWorkers", workersService.getAllWorkerDetailss());
+		return "admin";
 	}
 	
 	@PostMapping("/processDetails")

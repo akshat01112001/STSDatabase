@@ -5,16 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.UserDetails;
+import com.example.demo.model.WorkerDetails;
 import com.example.demo.service.DetailsService;
+import com.example.demo.service.WorkersService;
 
 @Controller
 public class ParkingController {
 	
 	@Autowired
 	private DetailsService detailsService;
+	@Autowired
+	private WorkersService workersService;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
@@ -22,11 +27,23 @@ public class ParkingController {
 		return "index";
 	}
 	
+	@PostMapping("/addWorker")
+	public String addWorker(@ModelAttribute("WorkerDetails") WorkerDetails workerDetails) {
+		workersService.saveWorkerDetails(workerDetails);
+		return "redirect:/admin"; 
+	}
+	
 	@GetMapping("/register")
 	public String Register(Model model) {
 		UserDetails userDetails=new UserDetails();
 		model.addAttribute("userDetails", userDetails);
 		return "Register";
+	}
+	
+	@GetMapping("/deleteWorker/{Name}")
+	public String deleteWorker(@PathVariable (value="Name") String Name) {
+		this.workersService.deleteWorkerById(Name);
+		return "redirect:/admin";
 	}
 	
 	@PostMapping("/saveDetails")
@@ -38,6 +55,12 @@ public class ParkingController {
 		}
 		else
 			return "redirect:/register";
+	}
+	
+	@GetMapping("/logout")
+	public String Logout()
+	{
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/login")
@@ -52,10 +75,25 @@ public class ParkingController {
 		return "Dashboard";
 	}
 	
+	@GetMapping("/add")
+	public String addWorker(Model model) {
+		WorkerDetails workerDetails=new WorkerDetails();
+		model.addAttribute("workerDetails", workerDetails);
+		return "AddWorker";
+	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		model.addAttribute("listWorkers", workersService.getAllWorkerDetailss());
+		return "admin";
+	}
+	
 	@PostMapping("/processDetails")
 	public String Dashboard(@ModelAttribute("UserDetails") UserDetails userDetails)
 	{
-		if(detailsService.findUser(userDetails)==true)
+		if(detailsService.findUser(userDetails)==true && (userDetails.getUsername()).compareTo("admin")==0)
+		return "redirect:/admin";
+		else if(detailsService.findUser(userDetails)==true)
 		return "redirect:/dashboard";
 		else
 		return "redirect:/login";

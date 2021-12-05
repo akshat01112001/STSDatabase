@@ -28,7 +28,7 @@ function updateSelectedCount() {
 
   count.innerText = selectedSlotsCount;
   total.innerText = selectedSlotsCount * ticketPrice;
-
+  document.getElementById('total').setAttribute('value', selectedSlotsCount * ticketPrice);
   setSlotData(slotSelect.selectedIndex, slotSelect.value);
 }
 
